@@ -1,15 +1,14 @@
 
 Name: app-greylisting
-Group: ClearOS/Apps
-Version: 5.9.9.0
+Epoch: 1
+Version: 1.0.5
 Release: 1%{dist}
 Summary: Greylisting
 License: GPLv3
-Packager: ClearFoundation
-Vendor: ClearFoundation
+Group: ClearOS/Apps
 Source: %{name}-%{version}.tar.gz
 Buildarch: noarch
-Requires: %{name}-core = %{version}-%{release}
+Requires: %{name}-core = 1:%{version}-%{release}
 Requires: app-base
 
 %description
@@ -17,8 +16,8 @@ Greylisting description...
 
 %package core
 Summary: Greylisting - APIs and install
-Group: ClearOS/Libraries
 License: LGPLv3
+Group: ClearOS/Libraries
 Requires: app-base-core
 Requires: postgrey >= 1.33-2
 
