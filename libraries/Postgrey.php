@@ -273,7 +273,7 @@ class Postgrey extends Daemon
         clearos_profile(__METHOD__, __LINE__);
 
         if (! preg_match('/^\d+$/', $delay) || ($delay > self::MAX_DELAY))
-            return lang('greylisting_delay_is_invalid');
+            return lang('greylisting_delay_invalid');
     }
 
     /**
@@ -289,7 +289,7 @@ class Postgrey extends Daemon
         clearos_profile(__METHOD__, __LINE__);
 
         if (! preg_match('/^\d+$/', $days) || ($days > self::MAX_RETENTION_TIME))
-            return lang('greylisting_maximum_retention_time_is_invalid');
+            return lang('greylisting_maximum_retention_time_invalid');
     }
 
     /**

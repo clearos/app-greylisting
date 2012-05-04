@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Greylisting controller.
+ * Greylisting daemon controller.
  *
  * @category   Apps
  * @package    Greylisting
@@ -30,11 +30,24 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
+// B O O T S T R A P
+///////////////////////////////////////////////////////////////////////////////
+
+$bootstrap = getenv('CLEAROS_BOOTSTRAP') ? getenv('CLEAROS_BOOTSTRAP') : '/usr/clearos/framework/shared';
+require_once $bootstrap . '/bootstrap.php';
+
+///////////////////////////////////////////////////////////////////////////////
+// D E P E N D E N C I E S
+///////////////////////////////////////////////////////////////////////////////
+
+require clearos_app_base('base') . '/controllers/daemon.php';
+
+///////////////////////////////////////////////////////////////////////////////
 // C L A S S
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * Greylisting controller.
+ * Greylisting daemon controller.
  *
  * @category   Apps
  * @package    Greylisting
@@ -45,26 +58,10 @@
  * @link       http://www.clearfoundation.com/docs/developer/apps/greylisting/
  */
 
-class Greylisting extends ClearOS_Controller
+class Server extends Daemon
 {
-    /**
-     * Greylisting server summary view.
-     *
-     * @return view
-     */
-
-    function index()
+    function __construct()
     {
-        // Load libraries
-        //---------------
-
-        $this->lang->load('greylisting');
-
-        // Load views
-        //-----------
-
-        $views = array('greylisting/server', 'greylisting/settings');
-
-        $this->page->view_forms($views, lang('greylisting_app_name'));
+        parent::__construct('postgrey', 'greylisting');
     }
 }

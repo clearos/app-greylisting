@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'greylisting';
-$app['version'] = '1.0.5';
+$app['version'] = '1.1.0';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -24,6 +24,10 @@ $app['subcategory'] = lang('base_subcategory_mail');
 /////////////////////////////////////////////////////////////////////////////
 // Controllers
 /////////////////////////////////////////////////////////////////////////////
+
+$app['controllers']['greylisting']['title'] = $app['name'];
+$app['controllers']['settings']['title'] = lang('base_settings');
+$app['controllers']['server']['title'] = lang('base_app_server');
 
 /////////////////////////////////////////////////////////////////////////////
 // Packaging

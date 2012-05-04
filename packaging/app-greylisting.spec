@@ -1,7 +1,7 @@
 
 Name: app-greylisting
 Epoch: 1
-Version: 1.0.5
+Version: 1.1.0
 Release: 1%{dist}
 Summary: Greylisting
 License: GPLv3
@@ -15,7 +15,7 @@ Requires: app-base
 Greylisting description...
 
 %package core
-Summary: Greylisting - APIs and install
+Summary: Greylisting - Core
 License: LGPLv3
 Group: ClearOS/Libraries
 Requires: app-base-core
