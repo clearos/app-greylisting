@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'greylisting';
-$app['version'] = '1.1.0';
+$app['version'] = '1.1.1';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -33,7 +33,12 @@ $app['controllers']['server']['title'] = lang('base_app_server');
 // Packaging
 /////////////////////////////////////////////////////////////////////////////
 
+$app['requires'] = array(
+    'app-smtp',
+);
+
 $app['core_requires'] = array(
+    'app-smtp-core',
     'postgrey >= 1.33-2',
 );
 

@@ -1,7 +1,7 @@
 
 Name: app-greylisting
 Epoch: 1
-Version: 1.1.0
+Version: 1.1.1
 Release: 1%{dist}
 Summary: Greylisting
 License: GPLv3
@@ -10,19 +10,21 @@ Source: %{name}-%{version}.tar.gz
 Buildarch: noarch
 Requires: %{name}-core = 1:%{version}-%{release}
 Requires: app-base
+Requires: app-smtp
 
 %description
-Greylisting description...
+The Greylisting app provides additional protection against spam and viruses by filtering out non-compliant e-mail messages.
 
 %package core
 Summary: Greylisting - Core
 License: LGPLv3
 Group: ClearOS/Libraries
 Requires: app-base-core
+Requires: app-smtp-core
 Requires: postgrey >= 1.33-2
 
 %description core
-Greylisting description...
+The Greylisting app provides additional protection against spam and viruses by filtering out non-compliant e-mail messages.
 
 This package provides the core API and libraries.
 
