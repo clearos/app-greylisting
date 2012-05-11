@@ -60,8 +60,39 @@ require clearos_app_base('base') . '/controllers/daemon.php';
 
 class Server extends Daemon
 {
+    /**
+     * Postgrey server constructor.
+     */
     function __construct()
     {
         parent::__construct('postgrey', 'greylisting');
+    }
+
+    /**
+     * Starts daemon.
+     *
+     * @return void
+     */
+
+    function start()
+    {
+        $this->load->library('greylisting/Postgrey');
+        $this->postgrey->set_state(TRUE);
+
+        parent::start();
+    }
+
+    /**
+     * Stops daemon.
+     *
+     * @return void
+     */
+
+    function stop()
+    {
+        $this->load->library('greylisting/Postgrey');
+        $this->postgrey->set_state(FALSE);
+
+        parent::stop();
     }
 }

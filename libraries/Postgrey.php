@@ -254,6 +254,7 @@ class Postgrey extends Daemon
 
         $postfix = new Postfix();
         $postfix->set_policy_service(self::CONSTANT_POSTFIX_POLICY_SERVICE, $state);
+        $postfix->reset(TRUE);
     }
 
     ///////////////////////////////////////////////////////////////////////////////

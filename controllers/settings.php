@@ -110,7 +110,7 @@ class Settings extends ClearOS_Controller
             try {
                 $this->postgrey->set_delay($this->input->post('delay'));
                 $this->postgrey->set_retention_time($this->input->post('retention_time'));
-                $this->postgrey->reset();
+                $this->postgrey->reset(TRUE);
 
                 $this->page->set_status_updated();
                 redirect('/greylisting/settings');
