@@ -45,3 +45,8 @@ $app['core_requires'] = array(
 $app['core_file_manifest'] = array(
     'postgrey.php'=> array('target' => '/var/clearos/base/daemon/postgrey.php'),
 );
+
+$app['delete_dependency'] = array(
+    'app-greylisting-core',
+    'postgrey'
+);
