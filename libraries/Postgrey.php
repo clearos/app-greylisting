@@ -3,9 +3,9 @@
 /**
  * Postgrey class.
  *
- * @category   Apps
- * @package    Greylisting
- * @subpackage Libraries
+ * @category   apps
+ * @package    greylisting
+ * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2007-2011 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later
@@ -85,9 +85,9 @@ clearos_load_library('base/Validation_Exception');
 /**
  * Postgrey class.
  *
- * @category   Apps
- * @package    Greylisting
- * @subpackage Libraries
+ * @category   apps
+ * @package    greylisting
+ * @subpackage libraries
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2007-2011 ClearFoundation
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU Lesser General Public License version 3 or later

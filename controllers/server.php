@@ -3,9 +3,9 @@
 /**
  * Greylisting daemon controller.
  *
- * @category   Apps
- * @package    Greylisting
- * @subpackage Controllers
+ * @category   apps
+ * @package    greylisting
+ * @subpackage controllers
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2012 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
@@ -49,9 +49,9 @@ require clearos_app_base('base') . '/controllers/daemon.php';
 /**
  * Greylisting daemon controller.
  *
- * @category   Apps
- * @package    Greylisting
- * @subpackage Controllers
+ * @category   apps
+ * @package    greylisting
+ * @subpackage controllers
  * @author     ClearFoundation <developer@clearfoundation.com>
  * @copyright  2012 ClearFoundation
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License version 3 or later
