@@ -27,7 +27,7 @@ $app['subcategory'] = lang('base_subcategory_mail');
 
 $app['controllers']['greylisting']['title'] = $app['name'];
 $app['controllers']['settings']['title'] = lang('base_settings');
-$app['controllers']['server']['title'] = lang('base_app_server');
+$app['controllers']['server']['title'] = lang('base_app_name');
 
 /////////////////////////////////////////////////////////////////////////////
 // Packaging
