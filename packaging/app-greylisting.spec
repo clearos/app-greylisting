@@ -1,7 +1,7 @@
 
 Name: app-greylisting
 Epoch: 1
-Version: 1.2.2
+Version: 1.6.5
 Release: 1%{dist}
 Summary: Greylisting
 License: GPLv3
@@ -74,7 +74,6 @@ exit 0
 %files core
 %defattr(-,root,root)
 %exclude /usr/clearos/apps/greylisting/packaging
-%exclude /usr/clearos/apps/greylisting/tests
 %dir /usr/clearos/apps/greylisting
 /usr/clearos/apps/greylisting/deploy
 /usr/clearos/apps/greylisting/language
