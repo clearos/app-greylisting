@@ -1,0 +1,3 @@
+MAXAGE="35"
+DELAY="300"
+OPTIONS="--delay=$DELAY --max-age=$MAXAGE"

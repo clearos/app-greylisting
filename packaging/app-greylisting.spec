@@ -1,7 +1,7 @@
 
 Name: app-greylisting
 Epoch: 1
-Version: 2.0.18
+Version: 2.0.22
 Release: 1%{dist}
 Summary: Greylisting
 License: GPLv3
@@ -36,6 +36,8 @@ This package provides the core API and libraries.
 mkdir -p -m 755 %{buildroot}/usr/clearos/apps/greylisting
 cp -r * %{buildroot}/usr/clearos/apps/greylisting/
 
+install -d -m 0755 %{buildroot}/var/clearos/greylisting
+install -d -m 0755 %{buildroot}/var/clearos/greylisting/backup
 install -D -m 0644 packaging/postgrey.php %{buildroot}/var/clearos/base/daemon/postgrey.php
 
 %post
@@ -75,6 +77,8 @@ exit 0
 %defattr(-,root,root)
 %exclude /usr/clearos/apps/greylisting/packaging
 %dir /usr/clearos/apps/greylisting
+%dir /var/clearos/greylisting
+%dir /var/clearos/greylisting/backup
 /usr/clearos/apps/greylisting/deploy
 /usr/clearos/apps/greylisting/language
 /usr/clearos/apps/greylisting/libraries

@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'greylisting';
-$app['version'] = '2.0.18';
+$app['version'] = '2.0.22';
 $app['release'] = '1';
 $app['vendor'] = 'ClearFoundation';
 $app['packager'] = 'ClearFoundation';
@@ -44,6 +44,11 @@ $app['core_requires'] = array(
 
 $app['core_file_manifest'] = array(
     'postgrey.php'=> array('target' => '/var/clearos/base/daemon/postgrey.php'),
+);
+
+$app['core_directory_manifest'] = array(
+    '/var/clearos/greylisting' => array(),
+    '/var/clearos/greylisting/backup' => array(),
 );
 
 $app['delete_dependency'] = array(

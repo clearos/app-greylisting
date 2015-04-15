@@ -1,0 +1,14 @@
+#!/bin/sh
+
+TIMESTAMP=`date "+%b-%d-%Y-%T"`
+
+# Set default configuration
+#--------------------------
+
+logger -p local6.notice -t installer "app-postgrey-core - setting default configuration"
+
+if [ -e /etc/sysconfig/postgrey ]; then
+    cp /etc/sysconfig/postgrey /var/clearos/greylisting/backup/postgrey.$TIMESTAMP
+fi
+
+cp /usr/clearos/apps/greylisting/deploy/postgrey /etc/sysconfig/postgrey
