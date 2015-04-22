@@ -104,7 +104,6 @@ class Postgrey extends Daemon
     const FILE_CONFIG = '/etc/sysconfig/postgrey';
     const DEFAULT_DELAY = 300;
     const DEFAULT_RETENTION_TIME = 35;
-    const DEFAULT_CONFIG = 'OPTIONS="--delay=$DELAY --max-age=$MAXAGE"';
     const MAX_DELAY = 100000;
     const MAX_RETENTION_TIME = 3650;
     const CONSTANT_POSTFIX_POLICY_SERVICE = 'unix:/var/spool/postfix/postgrey/socket';
@@ -145,8 +144,8 @@ class Postgrey extends Daemon
         if (! $this->is_loaded)
             $this->_load_config();
 
-        if (isset($this->config['DELAY']))
-            return $this->config['DELAY'];
+        if (isset($this->config['--delay']))
+            return $this->config['--delay'];
         else
             return self::DEFAULT_DELAY;
     }
@@ -165,8 +164,8 @@ class Postgrey extends Daemon
         if (! $this->is_loaded)
             $this->_load_config();
 
-        if (isset($this->config['MAXAGE']))
-            return $this->config['MAXAGE'];
+        if (isset($this->config['--max-age']))
+            return $this->config['--max-age'];
         else
             return self::DEFAULT_RETENTION_TIME;
     }
@@ -209,7 +208,7 @@ class Postgrey extends Daemon
 
         Validation_Exception::is_valid($this->validate_delay($seconds));
 
-        $this->_set_parameter('DELAY', $seconds);
+        $this->_set_parameter('--delay', $seconds);
     }
 
     /**
@@ -227,7 +226,7 @@ class Postgrey extends Daemon
 
         Validation_Exception::is_valid($this->validate_retention_time($days));
 
-        $this->_set_parameter('MAXAGE', $days);
+        $this->_set_parameter('--max-age', $days);
     }
 
     /**
@@ -328,20 +327,25 @@ class Postgrey extends Daemon
     {
         clearos_profile(__METHOD__, __LINE__);
 
+        if (! $this->is_loaded)
+            $this->_load_config();
+
+        $new_line = 'POSTGREY_OPTS="';
+        $this->config[$key] = $value;
+
+        foreach ($this->config as $key => $value)
+            $new_line .= $key . '=' . $value . ' ';
+
+        $new_line = trim($new_line) . "\"\n";;
+
         try {
             $file = new File(self::FILE_CONFIG);
-            $match = $file->replace_lines("/^$key=.*/", "$key=\"$value\"\n");
+            $match = $file->replace_lines("/^POSTGREY_OPTS=.*/", $new_line);
             if (!$match)
-                $file->add_lines_before("$key=\"$value\"\n", '/^OPTIONS=/');
+                $file->add_lines($new_line);
         } catch (File_Not_Found_Exception $e) {
             $file->create('root', 'root', '0644');
-            $file->add_lines(self::DEFAULT_CONFIG . "\n");
-            $file->add_lines_before("$key=\"$value\"\n", '/^OPTIONS=/');
-        } catch (File_No_Match_Exception $e) {
-            $file->add_lines(self::DEFAULT_CONFIG . "\n");
-            $file->add_lines_before("$key=\"$value\"\n", '/^OPTIONS=/');
-        } catch (Exception $e) {
-            throw new Engine_Exception(clearos_exception_message($e), CLEAROS_ERROR);
+            $file->add_lines($new_line);
         }
 
         $this->is_loaded = FALSE;
@@ -362,16 +366,18 @@ class Postgrey extends Daemon
 
         try {
             $file = new Configuration_File(self::FILE_CONFIG);
-            $config = $file->Load();
+            $config = $file->load();
         } catch (File_Not_Found_Exception $e) {
-            // Empty configuration
-        } catch (Exception $e) {
-            throw new Engine_Exception($e->GetMessage(), COMMON_WARNING);
+            // Not fatal
         }
 
-        if (!empty($config)) {
-            foreach ($config as $key => $value)
-                $this->config[$key] = preg_replace('/"/', '', $value);
+        if (!empty($config['POSTGREY_OPTS'])) {
+            $config_line = preg_replace('/"/', '', $config['POSTGREY_OPTS']);
+            $params = preg_split('/\s+/', $config_line);
+            foreach ($params as $param ) {
+                $key_value = preg_split('/=/', $param);
+                $this->config[$key_value[0]] = $key_value[1];
+            }
         }
 
         $this->is_loaded = TRUE;

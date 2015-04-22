@@ -1,3 +1,1 @@
-MAXAGE="35"
-DELAY="300"
-OPTIONS="--delay=$DELAY --max-age=$MAXAGE"
+POSTGREY_OPTS="--delay=300 --max-age=35"

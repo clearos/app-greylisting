@@ -1,0 +1,14 @@
+#!/bin/sh
+
+TIMESTAMP=`date "+%b-%d-%Y-%T"`
+
+# Upgrade old configuration
+#--------------------------
+
+CHECK=`grep ^POSTGREY_OPTS /etc/sysconfig/postgrey 2>/dev/null`
+if [ -z "$CHECK" ]; then
+    logger -p local6.notice -t installer "app-postgrey-core - updating sysconfig file"
+    cp /etc/sysconfig/postgrey /var/clearos/greylisting/backup/postgrey.$TIMESTAMP
+    source /etc/sysconfig/postgrey
+    echo "POSTGREY_OPTS=\"--delay=$DELAY --max-age=$MAXAGE\"" > /etc/sysconfig/postgrey
+fi
