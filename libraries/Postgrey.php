@@ -58,11 +58,13 @@ clearos_load_language('greylisting');
 use \clearos\apps\base\Configuration_File as Configuration_File;
 use \clearos\apps\base\Daemon as Daemon;
 use \clearos\apps\base\File as File;
+use \clearos\apps\base\Folder as Folder;
 use \clearos\apps\smtp\Postfix as Postfix;
 
 clearos_load_library('base/Configuration_File');
 clearos_load_library('base/Daemon');
 clearos_load_library('base/File');
+clearos_load_library('base/Folder');
 clearos_load_library('smtp/Postfix');
 
 // Exceptions
@@ -102,6 +104,7 @@ class Postgrey extends Daemon
     ///////////////////////////////////////////////////////////////////////////////
 
     const FILE_CONFIG = '/etc/sysconfig/postgrey';
+    const PATH_DATA = '/var/spool/postfix/postgrey';
     const DEFAULT_DELAY = 300;
     const DEFAULT_RETENTION_TIME = 35;
     const MAX_DELAY = 100000;
@@ -191,6 +194,51 @@ class Postgrey extends Daemon
             return TRUE;
         else
             return FALSE;
+    }
+
+    /**
+     * Resets the greylisting state databases.
+     *
+     * @return void
+     * @throws Engine_Exception, Validation_Exception
+     */
+
+    public function clear_state()
+    {
+        clearos_profile(__METHOD__, __LINE__);
+
+        // Shutdown Postgrey
+        //------------------
+
+        $was_running = $this->get_running_state();
+
+        if ($was_running)
+            $this->set_running_state(FALSE);
+
+        // Purge files in data folder
+        //---------------------------
+
+        $data_folder = new Folder(self::PATH_DATA, TRUE);
+
+        if (!$data_folder->exists())
+            return;
+
+        $files = $data_folder->get_listing();
+        print_r($files);
+
+        foreach ($files as $filename) {
+            $file = new File(self::PATH_DATA . '/' . $filename);
+            $file->delete();
+        }
+
+        $files = $data_folder->get_listing();
+        print_r($files);
+
+        // Restart Postgrey
+        //-----------------
+
+        if ($was_running)
+            $this->set_running_state(TRUE);
     }
 
     /**
